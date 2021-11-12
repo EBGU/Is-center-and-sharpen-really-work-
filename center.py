@@ -40,8 +40,38 @@ h = cross_entropy(p_s,p_t)
 
 var = (np.sum(z**2,axis=(1))**0.5).mean(axis=1)
 
+
+# var - kl
 reg = LinearRegression().fit(var.reshape(-1,1), (h-e).reshape(-1,1))
 print(reg.coef_)
 
 plt.scatter(var,h-e,s=1)
+plt.show()
+
+# entropy - kl
+reg = LinearRegression().fit(e.reshape(-1,1), (h-e).reshape(-1,1))
+print(reg.coef_)
+
+plt.scatter(e,h-e,s=1)
+plt.show()
+
+# var - cross entropy
+reg = LinearRegression().fit(var.reshape(-1,1), (h).reshape(-1,1))
+print(reg.coef_)
+
+plt.scatter(var,h,s=1)
+plt.show()
+
+# entropy - cross entropy
+reg = LinearRegression().fit(e.reshape(-1,1), (h).reshape(-1,1))
+print(reg.coef_)
+
+plt.scatter(e,h,s=1)
+plt.show()
+
+# var - entropy
+reg = LinearRegression().fit(var.reshape(-1,1), (e).reshape(-1,1))
+print(reg.coef_)
+
+plt.scatter(var,e,s=1)
 plt.show()
