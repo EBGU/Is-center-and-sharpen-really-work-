@@ -28,7 +28,7 @@ tt = 0.1 #try 0.3
 
 #x = np.random.rand(sample,batchSize,dim)
 
-x = np.array([np.random.normal(1,i*1e-3+0.5,(batchSize,dim)) for i in range(sample)])
+x = np.array([np.random.normal(1,i*1e-3+0.001,(batchSize,dim)) for i in range(sample)])
 y = x + np.random.normal(0,0.1,(sample,batchSize,dim))
 z = center(x)
 
