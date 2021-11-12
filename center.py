@@ -23,8 +23,8 @@ def center(x):
 dim = 256
 batchSize = 256
 sample = 1000
-ts = 0.1 #try 0.3
-tt = 0.1 #try 0.3
+ts = 0.1 
+tt = 0.1 # try 0.04 0.07 
 
 #x = np.random.rand(sample,batchSize,dim)
 
@@ -36,6 +36,7 @@ p_t = softmax(z,tt)
 p_s = softmax(y,ts)
 
 e = entropy(p_t)
+e_ori = entropy(softmax(x,tt))
 h = cross_entropy(p_s,p_t)
 
 var = (np.sum(z**2,axis=(1))**0.5).mean(axis=1)
@@ -49,7 +50,7 @@ plt.scatter(var,h-e,s=1)
 plt.show()
 
 # entropy - kl
-reg = LinearRegression().fit(e.reshape(-1,1), (h-e).reshape(-1,1))
+reg = LinearRegression().fit(e_ori.reshape(-1,1), (h-e).reshape(-1,1))
 print(reg.coef_)
 
 plt.scatter(e,h-e,s=1)
@@ -63,14 +64,14 @@ plt.scatter(var,h,s=1)
 plt.show()
 
 # entropy - cross entropy
-reg = LinearRegression().fit(e.reshape(-1,1), (h).reshape(-1,1))
+reg = LinearRegression().fit(e_ori.reshape(-1,1), (h).reshape(-1,1))
 print(reg.coef_)
 
 plt.scatter(e,h,s=1)
 plt.show()
 
 # var - entropy
-reg = LinearRegression().fit(var.reshape(-1,1), (e).reshape(-1,1))
+reg = LinearRegression().fit(var.reshape(-1,1), (e_ori).reshape(-1,1))
 print(reg.coef_)
 
 plt.scatter(var,e,s=1)
