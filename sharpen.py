@@ -12,7 +12,7 @@ def entropy(p_x):
     return e_x
 
 def cross_entropy(p_x,p_y):
-    h_x = -np.sum(np.log(p_y)*p_x,axis=1)
+    h_x = -np.sum(np.log(p_x)*p_y,axis=1)
     return h_x
 
 dim = 256
