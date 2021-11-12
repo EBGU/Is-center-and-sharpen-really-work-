@@ -18,11 +18,11 @@ def cross_entropy(p_x,p_y):
 dim = 256
 sample = 100000
 ts = 0.1
-tt = 0.04
+tt = 0.04 # try 0.07
 
 #x = np.random.rand(sample,dim)
 x = np.random.normal(1,0.1,(sample,dim))
-y = x + np.random.normal(0,0.1,(sample,dim))
+y = x + np.random.normal(0,0.01,(sample,dim))
 
 p_t = softmax(x,tt)
 p_s = softmax(y,ts)
@@ -30,6 +30,14 @@ p_s = softmax(y,ts)
 e = entropy(p_t)
 h = cross_entropy(p_s,p_t)
 
+#cross entropy
+reg = LinearRegression().fit(e.reshape(-1,1), (h).reshape(-1,1))
+print(reg.coef_)
+
+plt.scatter(e,h,s=1)
+plt.show()
+
+#kl divergence
 reg = LinearRegression().fit(e.reshape(-1,1), (h-e).reshape(-1,1))
 print(reg.coef_)
 
